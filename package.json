@@ -1,6 +1,6 @@
 {
-  "name": "bothrs-component-generator",
-  "displayName": "bothrs-component-generator",
+  "name": "bothrs-assistant",
+  "displayName": "bothrs-assistant",
   "description": "",
   "version": "0.0.1",
   "engines": {
@@ -10,7 +10,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:bothrs-component-generator.helloWorld"
+    "onCommand:bothrs-assistant.helloWorld"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -39,12 +39,13 @@
       }
     },
     "menus": {
-      "editor/title": [
+      "explorer/context": [
         {
-          "when": "resourceLangId == markdown",
+          "when": "explorerResourceIsFolder",
           "command": "markdown.showPreview",
-          "alt": "markdown.showPreviewToSide",
-          "group": "7_modification"
+          "group": "7_modification",
+          "label": "A label",
+          "title": "A title"
         }
       ]
     }
@@ -54,22 +55,16 @@
     "compile": "webpack",
     "watch": "webpack --watch",
     "package": "webpack --mode production --devtool hidden-source-map",
-    "compile-tests": "tsc -p . --outDir out",
-    "watch-tests": "tsc -p . -w --outDir out",
-    "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
-    "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "lint": "eslint src --ext ts"
   },
   "devDependencies": {
     "@types/vscode": "^1.61.0",
     "@types/glob": "^7.1.4",
-    "@types/mocha": "^9.0.0",
     "@types/node": "14.x",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
     "eslint": "^8.1.0",
     "glob": "^7.1.7",
-    "mocha": "^9.1.3",
     "typescript": "^4.4.4",
     "ts-loader": "^9.2.5",
     "webpack": "^5.52.1",
