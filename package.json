@@ -10,7 +10,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:bothrs-assistant.helloWorld"
+    "onStartupFinished"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -25,7 +25,7 @@
             "commerce",
             "wap"
           ],
-          "description": "Specify which bothrs team's standard to use. Available options are \"ambient\", \"commerce\", \"wap\"."
+          "description": "Specify which Bothrs team's standard to use. Available options are \"ambient\", \"commerce\", \"wap\"."
         },
         "bothrs.framework": {
           "type": "string",
@@ -38,12 +38,18 @@
         }
       }
     },
+    "commands": [
+      {
+        "command": "bothrs-assistant.createComponentAtFolder",
+        "title": "Bothrs: Test"
+      }
+    ],
     "menus": {
       "explorer/context": [
         {
+          "command": "bothrs-assistant.createComponentAtFolder",
+          "group": "YourGroup@1",
           "when": "explorerResourceIsFolder",
-          "command": "markdown.showPreview",
-          "group": "7_modification",
           "label": "A label",
           "title": "A title"
         }
@@ -51,10 +57,9 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "yarn run package",
-    "compile": "webpack",
-    "watch": "webpack --watch",
-    "package": "webpack --mode production --devtool hidden-source-map",
+    "vscode:prepublish": "yarn run build",
+    "dev": "webpack --watch",
+    "build": "webpack --mode production --devtool hidden-source-map",
     "lint": "eslint src --ext ts"
   },
   "devDependencies": {
