@@ -6,7 +6,7 @@ import {
   generateStyledComponentsImport,
   generateStyledFileImport,
   REACT_IMPORT,
-  STYLED_COMPONENT,
+  generateStyledComponent,
 } from "./utils/snippets";
 import { createFileWithContents } from "./utils/fs";
 
@@ -40,7 +40,7 @@ const createReactOrReactNativeComponent = async (
   await createFileWithContents(
     styledComponentsUri,
     `${generateStyledComponentsImport(framework)}\n\n` +
-      `export ${STYLED_COMPONENT}\n`
+      `export ${generateStyledComponent(framework)}\n`
   );
 
   await createFileWithContents(

@@ -3,9 +3,9 @@ import { Framework } from "../../types/configuration";
 import { createFileWithContents } from "./utils/fs";
 import {
   generatePropsInterface,
+  generateStyledComponent,
   generateStyledComponentsImport,
   REACT_IMPORT_WAP,
-  STYLED_COMPONENT,
 } from "./utils/snippets";
 
 const createReactOrReactNativeComponent = async (
@@ -21,7 +21,7 @@ const createReactOrReactNativeComponent = async (
     componentUri,
     `${REACT_IMPORT_WAP}\n` +
       `${generateStyledComponentsImport(framework)}\n\n` +
-      `${STYLED_COMPONENT}\n\n` +
+      `${generateStyledComponent(framework)}\n\n` +
       `${generatePropsInterface(componentName)}\n\n` +
       `const ${componentName}: FC<${componentName}Props> = ({ children }) => {\n` +
       `  return <StyledContainer>{children}</StyledContainer>\n` +
