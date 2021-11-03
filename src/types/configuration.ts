@@ -12,4 +12,5 @@ export enum ProductTeam {
 export interface ExtensionConfig {
   framework: Framework;
   productTeam: ProductTeam;
+  shouldOpenCreatedComponentFile: boolean;
 }

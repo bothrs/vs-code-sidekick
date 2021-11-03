@@ -1,43 +1,48 @@
-import * as vscode from "vscode";
+import { workspace, commands, window } from "vscode";
+import type { ExtensionContext, Uri } from "vscode";
 import { createComponent } from "./modules/createComponent";
 import { ExtensionConfig } from "./types/configuration";
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
+export function activate(context: ExtensionContext) {
   // Use the console to output diagnostic information (console.log) and errors (console.error)
   // This line of code will only be executed once when your extension is activated
   console.log(
     'Congratulations, your extension "bothrs-assistant" is now active!'
   );
 
-  const config = vscode.workspace.getConfiguration();
+  const config = workspace.getConfiguration();
 
   const extensionConfig: ExtensionConfig = config.bothrs;
 
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with registerCommand
   // The commandId parameter must match the command field in package.json
-  let disposable = vscode.commands.registerCommand(
+  let disposable = commands.registerCommand(
     "bothrs-assistant.createComponentAtFolder",
-    async (folderUri?: vscode.Uri) => {
+    async (folderUri?: Uri) => {
       const clickedFolderPath = folderUri?.path;
 
       if (!clickedFolderPath) {
         return;
       }
 
-      vscode.window.showInputBox().then((componentName) => {
+      window.showInputBox().then(async (componentName) => {
         if (!componentName) {
           return;
         }
 
-        createComponent(
+        const createdFilePath = await createComponent(
           clickedFolderPath,
           componentName,
           extensionConfig.framework,
           extensionConfig.productTeam
         );
+
+        if (createdFilePath && extensionConfig.shouldOpenCreatedComponentFile) {
+          window.showTextDocument(createdFilePath);
+        }
       });
     }
   );

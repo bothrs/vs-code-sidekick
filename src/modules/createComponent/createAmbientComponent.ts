@@ -29,10 +29,10 @@ const createReactOrReactNativeComponent = async (
   await createFileWithContents(
     componentUri,
     `${REACT_IMPORT}\n\n` +
-      `${generateStyledFileImport(componentName)}\n` +
-      `${generatePropsFileImport(componentName)}\n\n` +
+      `${generatePropsFileImport(componentName)}\n` +
+      `${generateStyledFileImport(componentName)}\n\n` +
       `export const ${componentName}: React.FC<${componentName}Props> = ({ children }) => {\n` +
-      `\treturn <StyledContainer>{children}</StyledContainer>\n` +
+      `  return <StyledContainer>{children}</StyledContainer>\n` +
       `}\n`
   );
 
@@ -46,13 +46,15 @@ const createReactOrReactNativeComponent = async (
     componentPropsUri,
     `${generatePropsInterface(componentName)}\n`
   );
+
+  return componentUri;
 };
 
 export const createAmbientComponent = async (
   commandPath: string,
   componentName: string,
   framework: Framework
-) => {
+): Promise<Uri | void> => {
   const componentFolderName: string =
     componentName.charAt(0).toLowerCase() + componentName.slice(1);
 

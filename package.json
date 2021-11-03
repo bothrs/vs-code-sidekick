@@ -36,6 +36,11 @@
             "react-native"
           ],
           "description": "Specify the framework, currently supported options are \"react\" and \"react-native\"."
+        },
+        "bothrs.shouldOpenCreatedComponentFile": {
+          "type": "boolean",
+          "default": true,
+          "description": "Specify if Bothrs Assistant should open the created component file."
         }
       }
     },
