@@ -1,7 +1,7 @@
 {
   "name": "bothrs-assistant",
-  "displayName": "bothrs-assistant",
-  "description": "",
+  "displayName": "Bothrs Assistant",
+  "description": "A helpful extension to simplify the day to day work of Bothrs developer.",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.61.0"
