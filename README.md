@@ -1,35 +1,38 @@
-# bothrs-vs-code-assistant README
+# Bothrs VScode assistant README
 
-This is the README for your extension "bothrs-vs-code-assistant". After writing up a brief description, we recommend including the following sections.
+This extension provides adds some helper functionality to Visual Studio Code.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+### Component generator
 
-For example if there is an image subfolder under your extension project workspace:
+A tool to easily create the boilerplate for a component.
 
-\!\[feature X\]\(images/feature-x.png\)
+The tool will change the structure it generates the files in based on your `Product Team` and `Framework`.
+
+[Demo](images/demo.gif)
 
 > Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
 
-## Requirements
+<!-- ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+If you have any requirements or dependencies, add a section describing those and how to install and configure them. -->
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+This extensions provides the following settings:
 
-For example:
+- `bothrs.productTeam`: Specify which Bothrs team's standard to use. Available options are `ambient`, `commerce`, `wap`.
+- `bothrs.framework`: Specify the framework, currently supported options are `react` and `react-native`.
+- `bothrs.shouldOpenCreatedComponentFile`: Specify if Bothrs Assistant should open the created component file.
 
-This extension contributes the following settings:
+> Tip: Configure the project specific options in a project settings file. This way everyone who is working on the project will use the same setup.
 
-- `myExtension.enable`: enable/disable this extension
-- `myExtension.thing`: set to `blah` to do something
+<!-- ## Known Issues
 
-## Known Issues
+Calling out known issues can help limit users opening duplicate issues against your extension. -->
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+---
 
 ## Release Notes
 
@@ -43,12 +46,13 @@ Initial release of ...
 
 Fixed issue #.
 
-### 1.1.0
-
-Added features X, Y, and Z.
-
 ---
 
+<!-- ### 1.1.0
+
+Added features X, Y, and Z. -->
+
+<!--
 ## Following extension guidelines
 
 Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
@@ -66,6 +70,4 @@ Ensure that you've read through the extensions guidelines and follow the best pr
 ### For more information
 
 - [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-- [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+- [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/) -->
