@@ -19,7 +19,7 @@ export function activate(context: ExtensionContext) {
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with registerCommand
   // The commandId parameter must match the command field in package.json
-  let disposable = commands.registerCommand(
+  const disposable = commands.registerCommand(
     "bothrs-assistant.createComponentAtFolder",
     async (folderUri?: Uri) => {
       const clickedFolderPath = folderUri?.path;
