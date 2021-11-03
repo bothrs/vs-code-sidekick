@@ -39,7 +39,7 @@
         },
         "bothrs.shouldOpenCreatedComponentFile": {
           "type": "boolean",
-          "default": true,
+          "default": false,
           "description": "Specify if Bothrs Assistant should open the created component file."
         }
       }
@@ -55,9 +55,7 @@
         {
           "command": "bothrs-assistant.createComponentAtFolder",
           "group": "navigation@10",
-          "when": "explorerResourceIsFolder",
-          "label": "A label",
-          "title": "A title"
+          "when": "explorerResourceIsFolder"
         }
       ]
     }
