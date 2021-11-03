@@ -10,7 +10,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onStartupFinished"
+    "onStartupFinished",
+    "onCommand:bothrs-assistant.createComponentAtFolder"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -41,14 +42,14 @@
     "commands": [
       {
         "command": "bothrs-assistant.createComponentAtFolder",
-        "title": "Bothrs: Test"
+        "title": "New component"
       }
     ],
     "menus": {
       "explorer/context": [
         {
           "command": "bothrs-assistant.createComponentAtFolder",
-          "group": "YourGroup@1",
+          "group": "navigation@10",
           "when": "explorerResourceIsFolder",
           "label": "A label",
           "title": "A title"
