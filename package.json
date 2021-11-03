@@ -6,6 +6,9 @@
   "engines": {
     "vscode": "^1.61.0"
   },
+  "publisher": "bothrs",
+  "icon": "images/logo.png",
+  "repository": "https://github.com/bothrs/vs-code-assistant",
   "categories": [
     "Other"
   ],
