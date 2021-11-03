@@ -6,6 +6,7 @@ import {
   generateStyledComponentsImport,
   generateStyledFileImport,
   REACT_IMPORT,
+  generateStyledComponent,
 } from "./utils/snippets";
 import { createFileWithContents } from "./utils/fs";
 
@@ -41,12 +42,12 @@ const createReactOrReactNativeComponent = async (
   await createFileWithContents(
     styledComponentsUri,
     `${generateStyledComponentsImport(framework)}\n\n` +
-      `export const StyledContainer = styled.div\`\`\n`
+      `export ${generateStyledComponent(framework)}\n`
   );
 
   await createFileWithContents(
     componentPropsUri,
-    `${generatePropsInterface(componentName)}\n`
+    `export ${generatePropsInterface(componentName)}\n`
   );
 
   await createFileWithContents(

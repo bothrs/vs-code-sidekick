@@ -10,7 +10,7 @@ A tool to easily create the boilerplate for a component.
 
 The tool will change the structure it generates the files in based on your `Product Team` and `Framework`.
 
-[Demo](images/demo.gif)
+![Demo](images/demo.gif)
 
 > Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
 

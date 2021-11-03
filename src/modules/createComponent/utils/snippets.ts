@@ -2,6 +2,8 @@ import { Framework } from "../../../types/configuration";
 
 export const REACT_IMPORT = "import React from 'react'";
 
+export const REACT_IMPORT_WAP = "import React, { FC } from 'react'";
+
 export const generateStyledComponentsImport = (
   framework: Framework.React | Framework.ReactNative
 ) => {
@@ -19,5 +21,13 @@ export const generatePropsFileImport = (componentName: string) => {
 };
 
 export const generatePropsInterface = (componentName: string) => {
-  return `export interface ${componentName}Props {}`;
+  return `interface ${componentName}Props {}`;
+};
+
+export const generateStyledComponent = (
+  framework: Framework.React | Framework.ReactNative
+) => {
+  return `const StyledContainer = styled.${
+    framework === Framework.ReactNative ? "View" : "div"
+  }\`\``;
 };
