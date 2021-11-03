@@ -47,7 +47,7 @@
     "commands": [
       {
         "command": "bothrs-assistant.createComponentAtFolder",
-        "title": "New component"
+        "title": "New Component"
       }
     ],
     "menus": {
