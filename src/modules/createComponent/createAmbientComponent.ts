@@ -27,6 +27,8 @@ const createReactOrReactNativeComponent = async (
     `${componentDirectoryPath}/${componentName}.props.tsx`
   );
 
+  const barrelUri = Uri.file(`${componentDirectoryPath}/index.ts`);
+
   await createFileWithContents(
     componentUri,
     `${REACT_IMPORT}\n\n` +
@@ -46,6 +48,13 @@ const createReactOrReactNativeComponent = async (
   await createFileWithContents(
     componentPropsUri,
     `export ${generatePropsInterface(componentName)}\n`
+  );
+
+  await createFileWithContents(
+    barrelUri,
+    `export * from './${componentName}'\n` +
+      `export * from './${componentName}.props'\n` +
+      `export * from './${componentName}.styled'\n`
   );
 
   return componentUri;
