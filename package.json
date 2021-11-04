@@ -1,6 +1,6 @@
 {
-  "name": "bothrs-assistant",
-  "displayName": "Bothrs Assistant",
+  "name": "sidekick",
+  "displayName": "Bothrs Sidekick",
   "description": "A helpful extension to simplify the day to day work of Bothrs developer.",
   "version": "1.0.0",
   "engines": {
@@ -8,18 +8,18 @@
   },
   "publisher": "bothrs",
   "icon": "images/logo.png",
-  "repository": "https://github.com/bothrs/vs-code-assistant",
+  "repository": "https://github.com/bothrs/vs-code-sidekick",
   "categories": [
     "Other"
   ],
   "activationEvents": [
     "onStartupFinished",
-    "onCommand:bothrs-assistant.createComponentAtFolder"
+    "onCommand:bothrs-sidekick.createComponentAtFolder"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "configuration": {
-      "title": "Bothrs code assistant",
+      "title": "Bothrs code sidekick",
       "properties": {
         "bothrs.productTeam": {
           "type": "string",
@@ -43,20 +43,20 @@
         "bothrs.shouldOpenCreatedComponentFile": {
           "type": "boolean",
           "default": false,
-          "description": "Specify if Bothrs Assistant should open the created component file."
+          "description": "Specify if Bothrs Sidekick should open the created component file."
         }
       }
     },
     "commands": [
       {
-        "command": "bothrs-assistant.createComponentAtFolder",
+        "command": "bothrs-sidekick.createComponentAtFolder",
         "title": "New Component"
       }
     ],
     "menus": {
       "explorer/context": [
         {
-          "command": "bothrs-assistant.createComponentAtFolder",
+          "command": "bothrs-sidekick.createComponentAtFolder",
           "group": "navigation@10",
           "when": "explorerResourceIsFolder"
         }

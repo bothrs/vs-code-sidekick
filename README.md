@@ -1,4 +1,4 @@
-# Bothrs VScode assistant README
+# Bothrs VScode sidekick README
 
 This extension provides adds some helper functionality to Visual Studio Code.
 
@@ -24,7 +24,7 @@ This extensions provides the following settings:
 
 - `bothrs.productTeam`: Specify which Bothrs team's standard to use. Available options are `ambient`, `commerce`, `wap`.
 - `bothrs.framework`: Specify the framework, currently supported options are `react` and `react-native`.
-- `bothrs.shouldOpenCreatedComponentFile`: Specify if Bothrs Assistant should open the created component file.
+- `bothrs.shouldOpenCreatedComponentFile`: Specify if Bothrs Sidekick should open the created component file.
 
 > Tip: Configure the project specific options in a project settings file. This way everyone who is working on the project will use the same setup.
 
@@ -40,7 +40,7 @@ Users appreciate release notes as you update your extension.
 
 ### 1.0.0
 
-Inital release of Bothrs Assistant
+Inital release of Bothrs Sidekick
 
 <!-- ### 1.0.1
 

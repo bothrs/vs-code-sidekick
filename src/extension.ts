@@ -3,15 +3,8 @@ import type { ExtensionContext, Uri } from "vscode";
 import { createComponent } from "./modules/createComponent";
 import { ExtensionConfig } from "./types/configuration";
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
+// This method is called when your extension is activated
 export function activate(context: ExtensionContext) {
-  // Use the console to output diagnostic information (console.log) and errors (console.error)
-  // This line of code will only be executed once when your extension is activated
-  console.log(
-    'Congratulations, your extension "bothrs-assistant" is now active!'
-  );
-
   const config = workspace.getConfiguration();
 
   const extensionConfig: ExtensionConfig = config.bothrs;
@@ -20,7 +13,7 @@ export function activate(context: ExtensionContext) {
   // Now provide the implementation of the command with registerCommand
   // The commandId parameter must match the command field in package.json
   const disposable = commands.registerCommand(
-    "bothrs-assistant.createComponentAtFolder",
+    "bothrs-sidekick.createComponentAtFolder",
     async (folderUri?: Uri) => {
       const clickedFolderPath = folderUri?.path;
 
