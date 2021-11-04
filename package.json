@@ -10,6 +10,7 @@
   "icon": "images/logo.png",
   "repository": "https://github.com/bothrs/vs-code-sidekick",
   "categories": [
+    "Snippets",
     "Other"
   ],
   "activationEvents": [
