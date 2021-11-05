@@ -20,7 +20,7 @@
   "main": "./dist/extension.js",
   "contributes": {
     "configuration": {
-      "title": "Bothrs code sidekick",
+      "title": "Bothrs Sidekick",
       "properties": {
         "bothrs.productTeam": {
           "type": "string",
@@ -33,8 +33,11 @@
           "description": "Specify which Bothrs team's standard to use. Available options are \"ambient\", \"commerce\", \"wap\"."
         },
         "bothrs.framework": {
-          "type": "string",
-          "default": "react",
+          "type": [
+            "string",
+            "null"
+          ],
+          "default": null,
           "enum": [
             "react",
             "react-native"

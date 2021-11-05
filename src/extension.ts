@@ -1,7 +1,8 @@
 import { workspace, commands, window } from "vscode";
 import type { ExtensionContext, Uri } from "vscode";
 import { createComponent } from "./modules/createComponent";
-import { ExtensionConfig } from "./types/configuration";
+import { ExtensionConfig, Framework } from "./types/configuration";
+import { getCommandFramework } from "./modules/createComponent/utils/framework";
 
 // This method is called when your extension is activated
 export function activate(context: ExtensionContext) {
@@ -15,13 +16,19 @@ export function activate(context: ExtensionContext) {
   const disposable = commands.registerCommand(
     "bothrs-sidekick.createComponentAtFolder",
     async (folderUri?: Uri) => {
-      const clickedFolderPath = folderUri?.path;
+      try {
+        const clickedFolderPath = folderUri?.path;
 
-      if (!clickedFolderPath) {
-        return;
-      }
+        if (!clickedFolderPath) {
+          return;
+        }
 
-      window.showInputBox().then(async (componentName) => {
+        const framework = await getCommandFramework(
+          clickedFolderPath,
+          extensionConfig
+        );
+
+        const componentName = await window.showInputBox();
         if (!componentName) {
           return;
         }
@@ -29,14 +36,18 @@ export function activate(context: ExtensionContext) {
         const createdFilePath = await createComponent(
           clickedFolderPath,
           componentName,
-          extensionConfig.framework,
+          framework,
           extensionConfig.productTeam
         );
 
         if (createdFilePath && extensionConfig.shouldOpenCreatedComponentFile) {
           window.showTextDocument(createdFilePath);
         }
-      });
+      } catch (e) {
+        const error = e as Error;
+
+        window.showErrorMessage(error.message);
+      }
     }
   );
 

@@ -12,3 +12,28 @@ export const createFileWithContents = async (uri: Uri, content: string) => {
 
   await workspace.fs.writeFile(uri, Buffer.from(content));
 };
+
+export const getNearestPackageJson = async (
+  rootDirectoryPath: string,
+  startDirectoryPath: string
+): Promise<Record<string, any>> => {
+  const packageJsonUri = Uri.file(`${startDirectoryPath}/package.json`);
+
+  const packageJsonContents = await workspace.fs.readFile(packageJsonUri).then(
+    (value) => value,
+    () => {}
+  );
+
+  if (packageJsonContents) {
+    return JSON.parse(packageJsonContents.toString());
+  } else if (rootDirectoryPath !== startDirectoryPath) {
+    const parentDirectoryPath = startDirectoryPath
+      .split("/")
+      .slice(0, -1)
+      .join("/");
+
+    return await getNearestPackageJson(rootDirectoryPath, parentDirectoryPath);
+  }
+
+  return {};
+};
