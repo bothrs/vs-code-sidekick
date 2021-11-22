@@ -1,5 +1,5 @@
-import { workspace, Uri } from "vscode";
-import { Framework } from "../../types/configuration";
+import { workspace, Uri } from 'vscode';
+import { Framework } from '../../types/configuration';
 import {
   generatePropsFileImport,
   generatePropsInterface,
@@ -7,8 +7,8 @@ import {
   generateStyledFileImport,
   REACT_IMPORT,
   generateStyledComponent,
-} from "./utils/snippets";
-import { createFileWithContents } from "./utils/fs";
+} from './utils/snippets';
+import { createFileWithContents } from './utils/fs';
 
 const createReactOrReactNativeComponent = async (
   componentDirectoryPath: string,
@@ -47,7 +47,7 @@ const createReactOrReactNativeComponent = async (
 
   await createFileWithContents(
     componentPropsUri,
-    `export ${generatePropsInterface(componentName)}\n`
+    `export ${generatePropsInterface()}\n`
   );
 
   await createFileWithContents(

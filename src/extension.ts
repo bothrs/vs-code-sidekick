@@ -1,8 +1,8 @@
-import { workspace, commands, window } from "vscode";
-import type { ExtensionContext, Uri } from "vscode";
-import { createComponent } from "./modules/createComponent";
-import { ExtensionConfig, Framework } from "./types/configuration";
-import { getCommandFramework } from "./modules/createComponent/utils/framework";
+import { workspace, commands, window } from 'vscode';
+import type { ExtensionContext, Uri } from 'vscode';
+import { createComponent } from './modules/createComponent';
+import { ExtensionConfig } from './types/configuration';
+import { getCommandFramework } from './modules/createComponent/utils/framework';
 
 // This method is called when your extension is activated
 export function activate(context: ExtensionContext) {
@@ -14,7 +14,7 @@ export function activate(context: ExtensionContext) {
   // Now provide the implementation of the command with registerCommand
   // The commandId parameter must match the command field in package.json
   const disposable = commands.registerCommand(
-    "bothrs-sidekick.createComponentAtFolder",
+    'bothrs-sidekick.createComponentAtFolder',
     async (folderUri?: Uri) => {
       try {
         const clickedFolderPath = folderUri?.path;

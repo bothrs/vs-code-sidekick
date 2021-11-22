@@ -1,7 +1,7 @@
-import type { Uri } from "vscode";
-import { Framework, ProductTeam } from "../../types/configuration";
-import { createAmbientComponent } from "./createAmbientComponent";
-import { createWapComponent } from "./createWapComponent";
+import type { Uri } from 'vscode';
+import { Framework, ProductTeam } from '../../types/configuration';
+import { createAmbientComponent } from './createAmbientComponent';
+import { createFunctionalComponent } from './createFunctionalComponent';
 
 export const createComponent = async (
   commandPath: string,
@@ -24,11 +24,11 @@ export const createComponent = async (
       sanitizedComponentName,
       framework
     );
-  } else if (productTeam === ProductTeam.WAP) {
-    return await createWapComponent(
-      commandPath,
-      sanitizedComponentName,
-      framework
-    );
   }
+
+  return await createFunctionalComponent(
+    commandPath,
+    sanitizedComponentName,
+    framework
+  );
 };
