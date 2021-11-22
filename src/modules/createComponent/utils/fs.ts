@@ -1,39 +1,39 @@
-import { Uri, workspace } from "vscode";
+import { Uri, workspace } from 'vscode'
 
 export const createFileWithContents = async (uri: Uri, content: string) => {
   const existingFile = await workspace.fs.stat(uri).then(
     (value) => value,
-    () => {}
-  );
+    () => undefined
+  )
 
   if (existingFile) {
-    return;
+    return
   }
 
-  await workspace.fs.writeFile(uri, Buffer.from(content));
-};
+  await workspace.fs.writeFile(uri, Buffer.from(content))
+}
 
 export const getNearestPackageJson = async (
   rootDirectoryPath: string,
   startDirectoryPath: string
-): Promise<Record<string, any>> => {
-  const packageJsonUri = Uri.file(`${startDirectoryPath}/package.json`);
+): Promise<Record<string, unknown>> => {
+  const packageJsonUri = Uri.file(`${startDirectoryPath}/package.json`)
 
   const packageJsonContents = await workspace.fs.readFile(packageJsonUri).then(
     (value) => value,
-    () => {}
-  );
+    () => undefined
+  )
 
   if (packageJsonContents) {
-    return JSON.parse(packageJsonContents.toString());
+    return JSON.parse(packageJsonContents.toString())
   } else if (rootDirectoryPath !== startDirectoryPath) {
     const parentDirectoryPath = startDirectoryPath
-      .split("/")
+      .split('/')
       .slice(0, -1)
-      .join("/");
+      .join('/')
 
-    return await getNearestPackageJson(rootDirectoryPath, parentDirectoryPath);
+    return await getNearestPackageJson(rootDirectoryPath, parentDirectoryPath)
   }
 
-  return {};
-};
+  return {}
+}

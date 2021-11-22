@@ -1,5 +1,8 @@
-import { workspace, Uri } from 'vscode';
-import { Framework } from '../../types/configuration';
+import { workspace, Uri } from 'vscode'
+
+import { Framework } from '../../types/configuration'
+
+import { createFileWithContents } from './utils/fs'
 import {
   generatePropsFileImport,
   generatePropsInterface,
@@ -7,8 +10,7 @@ import {
   generateStyledFileImport,
   REACT_IMPORT,
   generateStyledComponent,
-} from './utils/snippets';
-import { createFileWithContents } from './utils/fs';
+} from './utils/snippets'
 
 const createReactOrReactNativeComponent = async (
   componentDirectoryPath: string,
@@ -17,17 +19,17 @@ const createReactOrReactNativeComponent = async (
 ) => {
   const componentUri = Uri.file(
     `${componentDirectoryPath}/${componentName}.tsx`
-  );
+  )
 
   const styledComponentsUri = Uri.file(
     `${componentDirectoryPath}/${componentName}.styled.tsx`
-  );
+  )
 
   const componentPropsUri = Uri.file(
     `${componentDirectoryPath}/${componentName}.props.tsx`
-  );
+  )
 
-  const barrelUri = Uri.file(`${componentDirectoryPath}/index.ts`);
+  const barrelUri = Uri.file(`${componentDirectoryPath}/index.ts`)
 
   await createFileWithContents(
     componentUri,
@@ -37,28 +39,28 @@ const createReactOrReactNativeComponent = async (
       `export const ${componentName}: React.FC<${componentName}Props> = ({ children }) => {\n` +
       `  return <StyledContainer>{children}</StyledContainer>\n` +
       `}\n`
-  );
+  )
 
   await createFileWithContents(
     styledComponentsUri,
     `${generateStyledComponentsImport(framework)}\n\n` +
       `export ${generateStyledComponent(framework)}\n`
-  );
+  )
 
   await createFileWithContents(
     componentPropsUri,
     `export ${generatePropsInterface()}\n`
-  );
+  )
 
   await createFileWithContents(
     barrelUri,
     `export * from './${componentName}'\n` +
       `export * from './${componentName}.props'\n` +
       `export * from './${componentName}.styled'\n`
-  );
+  )
 
-  return componentUri;
-};
+  return componentUri
+}
 
 export const createAmbientComponent = async (
   commandPath: string,
@@ -66,17 +68,17 @@ export const createAmbientComponent = async (
   framework: Framework
 ): Promise<Uri | void> => {
   const componentFolderName: string =
-    componentName.charAt(0).toLowerCase() + componentName.slice(1);
+    componentName.charAt(0).toLowerCase() + componentName.slice(1)
 
-  const componentFolderUri = Uri.file(`${commandPath}/${componentFolderName}`);
+  const componentFolderUri = Uri.file(`${commandPath}/${componentFolderName}`)
 
-  await workspace.fs.createDirectory(componentFolderUri);
+  await workspace.fs.createDirectory(componentFolderUri)
 
   if (framework === Framework.React || framework === Framework.ReactNative) {
     return createReactOrReactNativeComponent(
       componentFolderUri.path,
       componentName,
       framework
-    );
+    )
   }
-};
+}

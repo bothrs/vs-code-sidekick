@@ -1,7 +1,9 @@
-import type { Uri } from 'vscode';
-import { Framework, ProductTeam } from '../../types/configuration';
-import { createAmbientComponent } from './createAmbientComponent';
-import { createFunctionalComponent } from './createFunctionalComponent';
+import { Framework, ProductTeam } from '../../types/configuration'
+
+import { createAmbientComponent } from './createAmbientComponent'
+import { createFunctionalComponent } from './createFunctionalComponent'
+
+import type { Uri } from 'vscode'
 
 export const createComponent = async (
   commandPath: string,
@@ -10,25 +12,23 @@ export const createComponent = async (
   productTeam: ProductTeam
 ): Promise<Uri | void> => {
   const sanitizedComponentName =
-    componentName.charAt(0).toUpperCase() + componentName.slice(1);
+    componentName.charAt(0).toUpperCase() + componentName.slice(1)
 
   if (productTeam === ProductTeam.Ambient) {
     return await createAmbientComponent(
       commandPath,
       sanitizedComponentName,
       framework
-    );
+    )
   } else if (productTeam === ProductTeam.Commerce) {
-    return await createAmbientComponent(
-      commandPath,
-      sanitizedComponentName,
-      framework
-    );
+    // To be replaced with commerce standard
+    await createAmbientComponent(commandPath, sanitizedComponentName, framework)
+    return
   }
 
   return await createFunctionalComponent(
     commandPath,
     sanitizedComponentName,
     framework
-  );
-};
+  )
+}
