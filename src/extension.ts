@@ -1,14 +1,16 @@
-import { workspace, commands, window } from 'vscode';
-import type { ExtensionContext, Uri } from 'vscode';
-import { createComponent } from './modules/createComponent';
-import { ExtensionConfig } from './types/configuration';
-import { getCommandFramework } from './modules/createComponent/utils/framework';
+import { workspace, commands, window } from 'vscode'
+
+import { createComponent } from './modules/createComponent'
+import { getCommandFramework } from './modules/createComponent/utils/framework'
+import { ExtensionConfig } from './types/configuration'
+
+import type { ExtensionContext, Uri } from 'vscode'
 
 // This method is called when your extension is activated
 export function activate(context: ExtensionContext) {
-  const config = workspace.getConfiguration();
+  const config = workspace.getConfiguration()
 
-  const extensionConfig: ExtensionConfig = config.bothrs;
+  const extensionConfig: ExtensionConfig = config.bothrs
 
   // The command has been defined in the package.json file
   // Now provide the implementation of the command with registerCommand
@@ -17,20 +19,20 @@ export function activate(context: ExtensionContext) {
     'bothrs-sidekick.createComponentAtFolder',
     async (folderUri?: Uri) => {
       try {
-        const clickedFolderPath = folderUri?.path;
+        const clickedFolderPath = folderUri?.path
 
         if (!clickedFolderPath) {
-          return;
+          return
         }
 
         const framework = await getCommandFramework(
           clickedFolderPath,
           extensionConfig
-        );
+        )
 
-        const componentName = await window.showInputBox();
+        const componentName = await window.showInputBox()
         if (!componentName) {
-          return;
+          return
         }
 
         const createdFilePath = await createComponent(
@@ -38,21 +40,23 @@ export function activate(context: ExtensionContext) {
           componentName,
           framework,
           extensionConfig.productTeam
-        );
+        )
 
         if (createdFilePath && extensionConfig.shouldOpenCreatedComponentFile) {
-          window.showTextDocument(createdFilePath);
+          window.showTextDocument(createdFilePath)
         }
       } catch (e) {
-        const error = e as Error;
+        const error = e as Error
 
-        window.showErrorMessage(error.message);
+        window.showErrorMessage(error.message)
       }
     }
-  );
+  )
 
-  context.subscriptions.push(disposable);
+  context.subscriptions.push(disposable)
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() {
+  console.log('Bothrs Sidekick is hanging up the cape.')
+}

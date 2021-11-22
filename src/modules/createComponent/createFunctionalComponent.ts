@@ -1,13 +1,15 @@
-import { Uri } from 'vscode';
-import { Framework } from '../../types/configuration';
-import { createFileWithContents } from './utils/fs';
+import { Uri } from 'vscode'
+
+import { Framework } from '../../types/configuration'
+
+import { createFileWithContents } from './utils/fs'
 import {
   generatePropsInterface,
   generateStyledComponent,
   generateStyledComponentsImport,
   REACT_IMPORT_FC,
   REACT_NATIVE_IMPORT,
-} from './utils/snippets';
+} from './utils/snippets'
 
 const createReactOrReactNativeComponent = async (
   componentDirectoryPath: string,
@@ -16,7 +18,7 @@ const createReactOrReactNativeComponent = async (
 ) => {
   const componentUri = Uri.file(
     `${componentDirectoryPath}/${componentName}.tsx`
-  );
+  )
 
   await createFileWithContents(
     componentUri,
@@ -29,10 +31,10 @@ const createReactOrReactNativeComponent = async (
       `}\n\n` +
       `export default ${componentName}\n` +
       `${generateStyledComponent(framework)}\n\n`
-  );
+  )
 
-  return componentUri;
-};
+  return componentUri
+}
 
 export const createFunctionalComponent = async (
   componentDirectoryPath: string,
@@ -44,6 +46,6 @@ export const createFunctionalComponent = async (
       componentDirectoryPath,
       componentName,
       framework
-    );
+    )
   }
-};
+}
