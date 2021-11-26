@@ -1,10 +1,10 @@
 import { Framework } from '../../../types/configuration'
 
-export const REACT_IMPORT = "import React from 'react'"
-export const REACT_NATIVE_IMPORT =
-  "import { StyleProp, ViewStyle } from 'react-native'"
+export const REACT_IMPORT =
+  `import React from 'react'\n` + `import type { FC } from 'react'`
 
-export const REACT_IMPORT_FC = "import React, { FC } from 'react'"
+export const REACT_NATIVE_IMPORT =
+  "import type { StyleProp, ViewStyle } from 'react-native'"
 
 export const generateStyledComponentsImport = (
   framework: Framework.React | Framework.ReactNative
@@ -18,10 +18,18 @@ export const generateStyledFileImport = (componentName: string) => {
   return `import { Container } from './${componentName}.style'`
 }
 
-export const generatePropsInterface = () => {
-  return `interface Props {
-    style?: StyleProp<ViewStyle>;
-  }`
+export const generatePropsInterface = (
+  framework: Framework.React | Framework.ReactNative
+) => {
+  return (
+    `interface Props {\n` +
+    `  ${
+      framework === Framework.ReactNative
+        ? 'style?: StyleProp<ViewStyle>'
+        : 'className?: string'
+    }\n` +
+    `}`
+  )
 }
 
 export const generateStyledComponent = (

@@ -8,6 +8,7 @@ import {
   REACT_IMPORT,
   generateStyledComponent,
   createFileWithContents,
+  REACT_NATIVE_IMPORT,
 } from '../utils'
 
 const createReactOrReactNativeComponent = async (
@@ -15,6 +16,8 @@ const createReactOrReactNativeComponent = async (
   componentName: string,
   framework: Framework.React | Framework.ReactNative
 ) => {
+  console.log(framework)
+
   const componentUri = Uri.file(
     `${componentDirectoryPath}/${componentName}.tsx`
   )
@@ -23,19 +26,24 @@ const createReactOrReactNativeComponent = async (
     `${componentDirectoryPath}/${componentName}.style.tsx`
   )
 
-  const componentPropsUri = Uri.file(
-    `${componentDirectoryPath}/${componentName}.props.tsx`
-  )
-
   const barrelUri = Uri.file(`${componentDirectoryPath}/index.ts`)
 
   await createFileWithContents(
     componentUri,
     `${REACT_IMPORT}\n\n` +
-      `${generateStyledFileImport(componentName)}\n` +
-      `${generatePropsInterface()}\n\n` +
-      `export const ${componentName}: FC<Props> = ({ children, style, className }) => {\n` +
-      `  return <StyledContainer>{children}</StyledContainer>\n` +
+      (framework === Framework.ReactNative
+        ? `${REACT_NATIVE_IMPORT}\n\n`
+        : '') +
+      `${generateStyledFileImport(componentName)}\n\n` +
+      `${generatePropsInterface(framework)}\n\n` +
+      `export const ${componentName}: FC<Props> = ({ children, ${
+        framework === Framework.ReactNative ? 'style' : 'className'
+      } }) => {\n` +
+      `  return <Container ${
+        framework === Framework.ReactNative
+          ? 'style={style}'
+          : 'className={className}'
+      } >{children}</Container>\n` +
       `}\n`
   )
 
@@ -43,11 +51,6 @@ const createReactOrReactNativeComponent = async (
     styledComponentsUri,
     `${generateStyledComponentsImport(framework)}\n\n` +
       `export ${generateStyledComponent(framework)}\n`
-  )
-
-  await createFileWithContents(
-    componentPropsUri,
-    `export ${generatePropsInterface()}\n`
   )
 
   await createFileWithContents(

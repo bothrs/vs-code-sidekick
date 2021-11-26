@@ -8,7 +8,7 @@ export const getCommandFramework = async (
   commandDirectoryPath: string,
   extensionConfig: ExtensionConfig
 ) => {
-  if (extensionConfig.framework) {
+  if (extensionConfig.framework !== Framework.Automatic) {
     return extensionConfig.framework
   }
 
