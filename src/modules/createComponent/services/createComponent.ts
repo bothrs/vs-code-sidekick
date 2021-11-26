@@ -1,16 +1,14 @@
 import { workspace, Uri } from 'vscode'
 
-import { Framework } from '../../types/configuration'
-
-import { createFileWithContents } from './utils/fs'
+import { Framework } from '../../../types/configuration'
 import {
-  generatePropsFileImport,
   generatePropsInterface,
   generateStyledComponentsImport,
   generateStyledFileImport,
   REACT_IMPORT,
   generateStyledComponent,
-} from './utils/snippets'
+  createFileWithContents,
+} from '../utils'
 
 const createReactOrReactNativeComponent = async (
   componentDirectoryPath: string,
@@ -22,7 +20,7 @@ const createReactOrReactNativeComponent = async (
   )
 
   const styledComponentsUri = Uri.file(
-    `${componentDirectoryPath}/${componentName}.styled.tsx`
+    `${componentDirectoryPath}/${componentName}.style.tsx`
   )
 
   const componentPropsUri = Uri.file(
@@ -34,9 +32,9 @@ const createReactOrReactNativeComponent = async (
   await createFileWithContents(
     componentUri,
     `${REACT_IMPORT}\n\n` +
-      `${generatePropsFileImport(componentName)}\n` +
-      `${generateStyledFileImport(componentName)}\n\n` +
-      `export const ${componentName}: React.FC<${componentName}Props> = ({ children }) => {\n` +
+      `${generateStyledFileImport(componentName)}\n` +
+      `${generatePropsInterface()}\n\n` +
+      `export const ${componentName}: FC<Props> = ({ children, style, className }) => {\n` +
       `  return <StyledContainer>{children}</StyledContainer>\n` +
       `}\n`
   )
@@ -54,21 +52,23 @@ const createReactOrReactNativeComponent = async (
 
   await createFileWithContents(
     barrelUri,
-    `export * from './${componentName}'\n` +
-      `export * from './${componentName}.props'\n` +
-      `export * from './${componentName}.styled'\n`
+    `export * from './${componentName}'\n`
   )
 
   return componentUri
 }
 
-export const createAmbientComponent = async (
+export const createComponent = async (
   commandPath: string,
   componentName: string,
   framework: Framework
 ): Promise<Uri | void> => {
+  const sanitizedComponentName =
+    componentName.charAt(0).toUpperCase() + componentName.slice(1)
+
   const componentFolderName: string =
-    componentName.charAt(0).toLowerCase() + componentName.slice(1)
+    sanitizedComponentName.charAt(0).toLowerCase() +
+    sanitizedComponentName.slice(1)
 
   const componentFolderUri = Uri.file(`${commandPath}/${componentFolderName}`)
 
@@ -77,7 +77,7 @@ export const createAmbientComponent = async (
   if (framework === Framework.React || framework === Framework.ReactNative) {
     return createReactOrReactNativeComponent(
       componentFolderUri.path,
-      componentName,
+      sanitizedComponentName,
       framework
     )
   }

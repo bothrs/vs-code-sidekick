@@ -15,15 +15,11 @@ export const generateStyledComponentsImport = (
 }
 
 export const generateStyledFileImport = (componentName: string) => {
-  return `import { Container } from './${componentName}.styled'`
-}
-
-export const generatePropsFileImport = (componentName: string) => {
-  return `import type { ${componentName}Props } from './${componentName}.props'`
+  return `import { Container } from './${componentName}.style'`
 }
 
 export const generatePropsInterface = () => {
-  return `export interface Props {
+  return `interface Props {
     style?: StyleProp<ViewStyle>;
   }`
 }

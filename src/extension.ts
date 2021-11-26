@@ -1,6 +1,6 @@
 import { workspace, commands, window } from 'vscode'
 
-import { createComponent } from './modules/createComponent'
+import { createComponent } from './modules/createComponent/services'
 import { getCommandFramework } from './modules/createComponent/utils/framework'
 import { ExtensionConfig } from './types/configuration'
 
@@ -38,8 +38,7 @@ export function activate(context: ExtensionContext) {
         const createdFilePath = await createComponent(
           clickedFolderPath,
           componentName,
-          framework,
-          extensionConfig.productTeam
+          framework
         )
 
         if (createdFilePath && extensionConfig.shouldOpenCreatedComponentFile) {
