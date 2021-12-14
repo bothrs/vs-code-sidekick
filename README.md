@@ -22,8 +22,7 @@ If you have any requirements or dependencies, add a section describing those and
 
 This extensions provides the following settings:
 
-- `bothrs.productTeam`: Specify which Bothrs team's standard to use. Available options are `ambient`, `commerce`, `wap`.
-- `bothrs.framework`: Specify the framework, currently supported options are `react` and `react-native`.
+- `bothrs.framework`: Specify the framework, the default auto detects the framework your project uses. Supported options are `automatic`, `react` and `react-native`.
 - `bothrs.shouldOpenCreatedComponentFile`: Specify if Bothrs Sidekick should open the created component file.
 
 > Tip: Configure the project specific options in a project settings file. This way everyone who is working on the project will use the same setup.

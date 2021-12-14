@@ -1,16 +1,10 @@
 export enum Framework {
-  React = "react",
-  ReactNative = "react-native",
-}
-
-export enum ProductTeam {
-  Ambient = "ambient",
-  WAP = "wap",
-  Commerce = "commerce",
+  Automatic = 'automatic',
+  React = 'react',
+  ReactNative = 'react-native',
 }
 
 export interface ExtensionConfig {
-  framework: Framework;
-  productTeam: ProductTeam;
-  shouldOpenCreatedComponentFile: boolean;
+  framework: Framework
+  shouldOpenCreatedComponentFile: boolean
 }
