@@ -16,8 +16,6 @@ const createReactOrReactNativeComponent = async (
   componentName: string,
   framework: Framework.React | Framework.ReactNative
 ) => {
-  console.log(framework)
-
   const componentUri = Uri.file(
     `${componentDirectoryPath}/${componentName}.tsx`
   )
