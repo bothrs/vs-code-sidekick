@@ -9,4 +9,5 @@ module.exports = {
   parserOptions: {
     project: './tsconfig.json',
   },
+  ignorePatterns: ['global.d.ts', '.eslintrc.js', 'webpack.config.js'],
 }
