@@ -4,7 +4,7 @@ import { Framework } from '../../../types/configuration'
 import barrelTemplateFileName from '../templates/barrel.mustache'
 import componentTemplateFileName from '../templates/component.mustache'
 import stylesTemplateFileName from '../templates/styles.mustache'
-import { createFileWithContents } from '../utils'
+import { createFileWithContents, kebabCase } from '../utils'
 
 const createReactOrReactNativeComponent = async (
   componentDirectoryPath: string,
@@ -68,9 +68,7 @@ export const createComponent = async (
   const sanitizedComponentName =
     componentName.charAt(0).toUpperCase() + componentName.slice(1)
 
-  const componentFolderName: string =
-    sanitizedComponentName.charAt(0).toLowerCase() +
-    sanitizedComponentName.slice(1)
+  const componentFolderName = kebabCase(sanitizedComponentName)
 
   const componentFolderUri = Uri.file(`${commandPath}/${componentFolderName}`)
 
