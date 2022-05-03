@@ -39,7 +39,12 @@ const extensionConfig = {
           },
         ],
       },
-      { test: /\.(mustache|mu)$/, use: [{ loader: 'file-loader' }] },
+      { 
+        test: /\.(mustache|mu)$/, 
+        use: [
+          { loader: 'file-loader' }
+        ] 
+      },
     ],
   },
   devtool: 'nosources-source-map',
