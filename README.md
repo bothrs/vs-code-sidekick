@@ -1,4 +1,4 @@
-# Bothrs VScode sidekick README
+# Bothrs Sidekick README
 
 This extension provides adds some helper functionality to Visual Studio Code.
 
@@ -35,11 +35,16 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+Releases
 
 ### 1.0.0
 
-Inital release of Bothrs Sidekick
+Inital release of Bothrs Sidekick.
+
+### 2.0.0
+
+Merged different team standards into one.
+
 
 <!-- ### 1.0.1
 

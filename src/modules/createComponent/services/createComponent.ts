@@ -1,15 +1,10 @@
 import { workspace, Uri } from 'vscode'
 
 import { Framework } from '../../../types/configuration'
-import {
-  generatePropsInterface,
-  generateStyledComponentsImport,
-  generateStyledFileImport,
-  REACT_IMPORT,
-  generateStyledComponent,
-  createFileWithContents,
-  REACT_NATIVE_IMPORT,
-} from '../utils'
+import barrelTemplateFileName from '../templates/barrel.mustache'
+import componentTemplateFileName from '../templates/component.mustache'
+import stylesTemplateFileName from '../templates/styles.mustache'
+import { createFileWithContents, kebabCase } from '../utils'
 
 const createReactOrReactNativeComponent = async (
   componentDirectoryPath: string,
@@ -19,42 +14,48 @@ const createReactOrReactNativeComponent = async (
   const componentUri = Uri.file(
     `${componentDirectoryPath}/${componentName}.tsx`
   )
+  const componentTemplateUri = Uri.file(
+    `${__dirname}/${componentTemplateFileName}`
+  )
+  const componentPromise = createFileWithContents(
+    componentUri,
+    componentTemplateUri,
+    {
+      componentName,
+      overWriteStylesPropDefinition:
+        framework === Framework.ReactNative
+          ? 'style?: StyleProp<ViewStyle>'
+          : 'className?: string',
+      reactNativeTypesImport: Framework.ReactNative
+        ? `import type { StyleProp, ViewStyle } from 'react-native'\n`
+        : '',
+    }
+  )
 
-  const styledComponentsUri = Uri.file(
-    `${componentDirectoryPath}/${componentName}.style.tsx`
+  const stylesUri = Uri.file(
+    `${componentDirectoryPath}/${componentName}.styled.tsx`
+  )
+  const stylesTemplateUri = Uri.file(`${__dirname}/${stylesTemplateFileName}`)
+  const stylesPromise = await createFileWithContents(
+    stylesUri,
+    stylesTemplateUri,
+    {
+      nativeExtension: framework === Framework.ReactNative ? '/native' : '',
+      containerComponent: framework === Framework.ReactNative ? 'View' : 'div',
+    }
   )
 
   const barrelUri = Uri.file(`${componentDirectoryPath}/index.ts`)
-
-  await createFileWithContents(
-    componentUri,
-    `${REACT_IMPORT}\n\n` +
-      (framework === Framework.ReactNative
-        ? `${REACT_NATIVE_IMPORT}\n\n`
-        : '') +
-      `${generateStyledFileImport(componentName)}\n\n` +
-      `${generatePropsInterface(framework)}\n\n` +
-      `export const ${componentName}: FC<Props> = ({ children, ${
-        framework === Framework.ReactNative ? 'style' : 'className'
-      } }) => {\n` +
-      `  return <Container ${
-        framework === Framework.ReactNative
-          ? 'style={style}'
-          : 'className={className}'
-      } >{children}</Container>\n` +
-      `}\n`
-  )
-
-  await createFileWithContents(
-    styledComponentsUri,
-    `${generateStyledComponentsImport(framework)}\n\n` +
-      `export ${generateStyledComponent(framework)}\n`
-  )
-
-  await createFileWithContents(
+  const barrelTemplateUri = Uri.file(`${__dirname}/${barrelTemplateFileName}`)
+  const barrelPromise = await createFileWithContents(
     barrelUri,
-    `export * from './${componentName}'\n`
+    barrelTemplateUri,
+    {
+      componentName,
+    }
   )
+
+  await Promise.all([componentPromise, stylesPromise, barrelPromise])
 
   return componentUri
 }
@@ -67,9 +68,7 @@ export const createComponent = async (
   const sanitizedComponentName =
     componentName.charAt(0).toUpperCase() + componentName.slice(1)
 
-  const componentFolderName: string =
-    sanitizedComponentName.charAt(0).toLowerCase() +
-    sanitizedComponentName.slice(1)
+  const componentFolderName = kebabCase(sanitizedComponentName)
 
   const componentFolderUri = Uri.file(`${commandPath}/${componentFolderName}`)
 

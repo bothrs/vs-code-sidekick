@@ -1,6 +1,20 @@
+import { render } from 'mustache'
 import { Uri, workspace } from 'vscode'
 
-export const createFileWithContents = async (uri: Uri, content: string) => {
+export const createFileWithContents = async (
+  uri: Uri,
+  mustacheFileUri: Uri,
+  mustacheFileParameters: Record<string, string | number> = {}
+) => {
+  const mustacheTemplate = await workspace.fs.readFile(mustacheFileUri).then(
+    (value) => value,
+    () => undefined
+  )
+
+  if (!mustacheTemplate) {
+    return
+  }
+
   const existingFile = await workspace.fs.stat(uri).then(
     (value) => value,
     () => undefined
@@ -9,6 +23,8 @@ export const createFileWithContents = async (uri: Uri, content: string) => {
   if (existingFile) {
     return
   }
+
+  const content = render(mustacheTemplate.toString(), mustacheFileParameters)
 
   await workspace.fs.writeFile(uri, Buffer.from(content))
 }

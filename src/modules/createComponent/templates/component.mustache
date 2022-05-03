@@ -1,0 +1,12 @@
+import React, { ReactNode } from 'react'
+
+import { StContainer } from './{{{componentName}}}.styled'
+{{{reactNativeTypesImport}}}
+interface Props {
+  {{{overWriteStylesPropDefinition}}}
+  children?: ReactNode
+}
+
+export const {{{componentName}}} = ({ children, style }: Props): ReactNode => {
+  return <StContainer style={style}>{children}</StContainer>
+}
