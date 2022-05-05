@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import React from 'react'
 
 import { StContainer } from './{{{componentName}}}.styled'
 {{{reactNativeTypesImport}}}
@@ -7,6 +7,6 @@ interface Props {
   children?: ReactNode
 }
 
-export const {{{componentName}}} = ({ children, style }: Props): ReactNode => {
+export const {{{componentName}}} = ({ children, style }: Props) => {
   return <StContainer style={style}>{children}</StContainer>
 }
