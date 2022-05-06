@@ -2,7 +2,7 @@
   "name": "sidekick",
   "displayName": "Bothrs Sidekick",
   "description": "A helpful extension to simplify the day to day work of Bothrs developer.",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "engines": {
     "vscode": "^1.61.0"
   },
