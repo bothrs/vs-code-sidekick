@@ -1,12 +1,13 @@
 import { workspace, Uri } from 'vscode'
 
-import { Framework } from '../../../types/configuration'
+import { Framework, StylesLibrary } from '../../../types/configuration'
 import barrelTemplateFileName from '../templates/barrel.mustache'
-import componentTemplateFileName from '../templates/component.mustache'
-import stylesTemplateFileName from '../templates/styles.mustache'
+import componentStyledTemplateFileName from '../templates/component.styled.mustache'
+import componentTailwindTemplateFileName from '../templates/component.tailwind.mustache'
+import stylesStyledTemplateFileName from '../templates/styles.styled.mustache'
 import { createFileWithContents, kebabCase } from '../utils'
 
-const createReactOrReactNativeComponent = async (
+const createReactOrReactNativeStyledComponent = async (
   componentDirectoryPath: string,
   componentName: string,
   framework: Framework.React | Framework.ReactNative
@@ -15,7 +16,7 @@ const createReactOrReactNativeComponent = async (
     `${componentDirectoryPath}/${componentName}.tsx`
   )
   const componentTemplateUri = Uri.file(
-    `${__dirname}/${componentTemplateFileName}`
+    `${__dirname}/${componentStyledTemplateFileName}`
   )
   const componentPromise = createFileWithContents(
     componentUri,
@@ -35,7 +36,9 @@ const createReactOrReactNativeComponent = async (
   const stylesUri = Uri.file(
     `${componentDirectoryPath}/${componentName}.styled.tsx`
   )
-  const stylesTemplateUri = Uri.file(`${__dirname}/${stylesTemplateFileName}`)
+  const stylesTemplateUri = Uri.file(
+    `${__dirname}/${stylesStyledTemplateFileName}`
+  )
   const stylesPromise = await createFileWithContents(
     stylesUri,
     stylesTemplateUri,
@@ -60,10 +63,43 @@ const createReactOrReactNativeComponent = async (
   return componentUri
 }
 
+const createReactTailwindComponent = async (
+  componentDirectoryPath: string,
+  componentName: string
+) => {
+  const componentUri = Uri.file(
+    `${componentDirectoryPath}/${componentName}.tsx`
+  )
+  const componentTemplateUri = Uri.file(
+    `${__dirname}/${componentTailwindTemplateFileName}`
+  )
+  const componentPromise = createFileWithContents(
+    componentUri,
+    componentTemplateUri,
+    {
+      componentName,
+    }
+  )
+  const barrelUri = Uri.file(`${componentDirectoryPath}/index.ts`)
+  const barrelTemplateUri = Uri.file(`${__dirname}/${barrelTemplateFileName}`)
+  const barrelPromise = await createFileWithContents(
+    barrelUri,
+    barrelTemplateUri,
+    {
+      componentName,
+    }
+  )
+
+  await Promise.all([componentPromise, barrelPromise])
+
+  return componentUri
+}
+
 export const createComponent = async (
   commandPath: string,
   componentName: string,
-  framework: Framework
+  framework: Framework,
+  stylesLibrary: StylesLibrary
 ): Promise<Uri | void> => {
   const sanitizedComponentName =
     componentName.charAt(0).toUpperCase() + componentName.slice(1)
@@ -74,11 +110,25 @@ export const createComponent = async (
 
   await workspace.fs.createDirectory(componentFolderUri)
 
-  if (framework === Framework.React || framework === Framework.ReactNative) {
-    return createReactOrReactNativeComponent(
+  console.log(stylesLibrary, framework)
+
+  if (
+    (framework === Framework.React || framework === Framework.ReactNative) &&
+    stylesLibrary === StylesLibrary.StyledComponents
+  ) {
+    return await createReactOrReactNativeStyledComponent(
       componentFolderUri.path,
       sanitizedComponentName,
       framework
+    )
+  }
+  if (
+    framework === Framework.React &&
+    stylesLibrary === StylesLibrary.Tailwind
+  ) {
+    return await createReactTailwindComponent(
+      componentFolderUri.path,
+      sanitizedComponentName
     )
   }
 }

@@ -2,6 +2,7 @@ import { workspace, commands, window } from 'vscode'
 
 import { createComponent } from './modules/createComponent/services'
 import { getCommandFramework } from './modules/createComponent/utils/framework'
+import { getStylesLibrary } from './modules/createComponent/utils/stylesLibrary'
 import { ExtensionConfig } from './types/configuration'
 
 import type { ExtensionContext, Uri } from 'vscode'
@@ -29,6 +30,10 @@ export function activate(context: ExtensionContext) {
           clickedFolderPath,
           extensionConfig
         )
+        const stylesLibrary = await getStylesLibrary(
+          clickedFolderPath,
+          extensionConfig
+        )
 
         const componentName = await window.showInputBox()
         if (!componentName) {
@@ -38,7 +43,8 @@ export function activate(context: ExtensionContext) {
         const createdFilePath = await createComponent(
           clickedFolderPath,
           componentName,
-          framework
+          framework,
+          stylesLibrary
         )
 
         if (createdFilePath && extensionConfig.shouldOpenCreatedComponentFile) {

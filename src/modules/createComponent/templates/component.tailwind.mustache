@@ -1,0 +1,10 @@
+import { ReactNode } from 'react'
+
+interface Props {
+  className?: string
+  children?: ReactNode
+}
+
+export const {{{componentName}}} = ({ children, className = '' }: Props) => {
+  return <div className={`flex-1 ${className}`}>{children}</div>
+}

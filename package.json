@@ -30,6 +30,17 @@
             "react",
             "react-native"
           ],
+          "description": "Specify the styles library, currently supported options are \"styled-components\" and \"tailwind\"."
+        },
+        "bothrs.stylesLibrary": {
+          "type": "string",
+          "default": "automatic",
+          "enum": [
+            "automatic",
+            "styledComponents",
+            "tailwind",
+            "css"
+          ],
           "description": "Specify the framework, currently supported options are \"react\" and \"react-native\"."
         },
         "bothrs.shouldOpenCreatedComponentFile": {
