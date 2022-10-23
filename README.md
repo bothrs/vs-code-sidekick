@@ -45,6 +45,11 @@ Inital release of Bothrs Sidekick.
 
 Merged different team standards into one.
 
+### 3.2.0
+
+- Fixed react-native syntax being used in default react templates
+- Added tailwind support
+
 
 <!-- ### 1.0.1
 
