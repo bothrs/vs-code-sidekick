@@ -110,8 +110,6 @@ export const createComponent = async (
 
   await workspace.fs.createDirectory(componentFolderUri)
 
-  console.log(stylesLibrary, framework)
-
   if (
     (framework === Framework.React || framework === Framework.ReactNative) &&
     stylesLibrary === StylesLibrary.StyledComponents
