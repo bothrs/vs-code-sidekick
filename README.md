@@ -47,8 +47,11 @@ Merged different team standards into one.
 
 ### 3.2.0
 
-- Fixed react-native syntax being used in default react templates
-- Added tailwind support
+Added tailwind support
+
+### 3.2.1
+
+Fixed react-native syntax being used in default react templates
 
 
 <!-- ### 1.0.1
