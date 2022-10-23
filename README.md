@@ -49,7 +49,7 @@ Merged different team standards into one.
 
 Added tailwind support
 
-### 3.2.1
+### 3.2.2
 
 Fixed react-native syntax being used in default react templates
 
