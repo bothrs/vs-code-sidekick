@@ -7,6 +7,6 @@ interface Props {
   children?: ReactNode
 }
 
-export const {{{componentName}}} = ({ children, style }: Props) => {
-  return <StContainer style={style}>{children}</StContainer>
+export const {{{componentName}}} = ({ children, {{componentStyleProp}} }: Props) => {
+  return <StContainer {{componentStyleProp}}={{componentStylePropPass}}>{children}</StContainer>
 }

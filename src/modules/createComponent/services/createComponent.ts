@@ -31,6 +31,10 @@ const createReactOrReactNativeStyledComponent = async (
         framework === Framework.ReactNative
           ? `\nimport type { StyleProp, ViewStyle } from 'react-native'\n`
           : '',
+      componentStylePropPass:
+        framework === Framework.ReactNative ? '{style}' : '{className}',
+      componentStyleProp:
+        framework === Framework.ReactNative ? 'style' : 'className',
     }
   )
 
