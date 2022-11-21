@@ -1,4 +1,4 @@
-import { workspace, Uri } from 'vscode'
+import { workspace, Uri, window } from 'vscode'
 
 import { Framework, StylesLibrary } from '../../../types/configuration'
 import barrelTemplateFileName from '../templates/barrel.mustache'
@@ -134,4 +134,8 @@ export const createComponent = async (
       sanitizedComponentName
     )
   }
+
+  window.showWarningMessage(
+    `Templates for the framework "${framework}" and style library "${stylesLibrary}" don't exist yet.`
+  )
 }
